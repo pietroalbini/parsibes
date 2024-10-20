@@ -1,6 +1,7 @@
+mod expansion;
 mod lexer;
-mod streams;
 mod parser;
+mod streams;
 
 pub use parser::*;
 pub use streams::Streams;

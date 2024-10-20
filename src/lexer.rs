@@ -1,4 +1,4 @@
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) enum Token<'a> {
     OpenParen,
     CloseParen,
@@ -8,6 +8,9 @@ pub(crate) enum Token<'a> {
     Plus,
     Dash,
     Semicolon,
+    Dollar,
+    Star,
+    Slash,
     Number(i64),
     String(&'a str),
 }
@@ -67,6 +70,9 @@ impl<'a> Iterator for Lexer<'a> {
                 '+' => return Some(Token::Plus),
                 ',' => return Some(Token::Comma),
                 ';' => return Some(Token::Semicolon),
+                '$' => return Some(Token::Dollar),
+                '*' => return Some(Token::Star),
+                '/' => return Some(Token::Slash),
                 _ => panic!("unexpected char: {first}"),
             }
         }
