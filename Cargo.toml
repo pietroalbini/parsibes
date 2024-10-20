@@ -1,0 +1,10 @@
+[package]
+name = "parsibes"
+version = "0.1.0"
+edition = "2021"
+description = "Proof of concept of a parser operating on multiple token streams"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/pietroalbini/parsibes"
+
+[dependencies]
+anyhow = "1.0.90"
