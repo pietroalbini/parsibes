@@ -7,6 +7,7 @@ pub(crate) enum Token<'a> {
     Comma,
     Plus,
     Dash,
+    Semicolon,
     Number(i64),
     String(&'a str),
 }
@@ -65,6 +66,7 @@ impl<'a> Iterator for Lexer<'a> {
                 '-' => return Some(Token::Dash),
                 '+' => return Some(Token::Plus),
                 ',' => return Some(Token::Comma),
+                ';' => return Some(Token::Semicolon),
                 _ => panic!("unexpected char: {first}"),
             }
         }
@@ -77,7 +79,7 @@ mod tests {
 
     #[test]
     fn test_lex() {
-        let input = "1234  +-,[] ()   \t \"hello world\"69";
+        let input = "1234  +-,[] ()   \t \"hello world\"69;";
         let tokens = Lexer::new(input).collect::<Vec<_>>();
         assert_eq!(
             &[
@@ -90,7 +92,8 @@ mod tests {
                 Token::OpenParen,
                 Token::CloseParen,
                 Token::String("hello world"),
-                Token::Number(69)
+                Token::Number(69),
+                Token::Semicolon,
             ],
             tokens.as_slice()
         );
