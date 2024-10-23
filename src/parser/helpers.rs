@@ -77,7 +77,7 @@ impl<'src, 'state, K: Ord> Diverge<'src, 'state, K> {
 #[macro_export]
 macro_rules! diverge {
     (match $state:ident { $($pat:pat => |$state_binding:ident| $block:expr),* $(,)? }) => {
-        crate::parser::helpers::Diverge::new($state, |token| match &token {
+        $crate::parser::helpers::Diverge::new($state, |token| match &token {
             $($pat => stringify!($pat),)*
         })?
         $(.handle(stringify!($pat), |$state_binding| $block)?)*

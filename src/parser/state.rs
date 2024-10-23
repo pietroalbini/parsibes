@@ -54,7 +54,7 @@ impl<'src> State<'src> {
     where
         F: FnMut(&mut StreamActions<'_, 'src, Option<Token<'src>>>),
     {
-        self.action_on_token(action, |stream| Ok(stream.lexer.peek().map(|c| c.clone())))
+        self.action_on_token(action, |stream| Ok(stream.lexer.peek().cloned()))
     }
 
     fn action_on_token<T: Debug, F, G>(

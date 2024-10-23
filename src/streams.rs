@@ -3,15 +3,14 @@ use std::collections::HashSet;
 use std::iter::Peekable;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
+#[derive(Default)]
 pub struct Streams<'src> {
     streams: Vec<Stream<'src>>,
 }
 
 impl<'src> Streams<'src> {
     pub fn new() -> Self {
-        Self {
-            streams: Vec::new(),
-        }
+        Streams::default()
     }
 
     pub fn add(&mut self, program: &'src str) {
@@ -38,7 +37,7 @@ pub(crate) struct Stream<'src> {
     pause: HashSet<PauseId>,
 }
 
-impl<'src> Stream<'src> {
+impl Stream<'_> {
     pub(crate) fn id(&self) -> StreamId {
         self.id
     }
@@ -66,7 +65,6 @@ impl<'src> Stream<'src> {
         !self.pause.is_empty()
     }
 }
-
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub(crate) struct StreamId(usize);
