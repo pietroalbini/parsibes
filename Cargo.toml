@@ -8,3 +8,6 @@ repository = "https://github.com/pietroalbini/parsibes"
 
 [dependencies]
 anyhow = "1.0.90"
+
+[dev-dependencies]
+insta = "1.40.0"

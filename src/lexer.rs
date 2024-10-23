@@ -1,4 +1,4 @@
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, PartialEq)]
 pub(crate) enum Token<'a> {
     OpenParen,
     CloseParen,
@@ -8,8 +8,33 @@ pub(crate) enum Token<'a> {
     Plus,
     Dash,
     Semicolon,
+    Dollar,
+    Star,
+    Slash,
     Number(i64),
     String(&'a str),
+}
+
+impl std::fmt::Debug for Token<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Token( ")?;
+        match self {
+            Self::OpenParen => write!(f, "(")?,
+            Self::CloseParen => write!(f, ")")?,
+            Self::OpenSquare => write!(f, "[")?,
+            Self::CloseSquare => write!(f, "]")?,
+            Self::Comma => write!(f, ",")?,
+            Self::Plus => write!(f, "+")?,
+            Self::Dash => write!(f, "-")?,
+            Self::Semicolon => write!(f, ";")?,
+            Self::Dollar => write!(f, "$")?,
+            Self::Star => write!(f, "*")?,
+            Self::Slash => write!(f, "/")?,
+            Self::Number(arg0) => write!(f, "{arg0}")?,
+            Self::String(arg0) => write!(f, "{arg0:?}")?,
+        }
+        write!(f, " )")
+    }
 }
 
 pub(crate) struct Lexer<'a> {
@@ -67,6 +92,9 @@ impl<'a> Iterator for Lexer<'a> {
                 '+' => return Some(Token::Plus),
                 ',' => return Some(Token::Comma),
                 ';' => return Some(Token::Semicolon),
+                '$' => return Some(Token::Dollar),
+                '*' => return Some(Token::Star),
+                '/' => return Some(Token::Slash),
                 _ => panic!("unexpected char: {first}"),
             }
         }
